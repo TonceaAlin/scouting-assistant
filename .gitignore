@@ -39,6 +39,7 @@ UI/*.bak
 
 # IDE files
 UI/.idea/
+UI/.vscode/
 
 # Backend (Java Spring)
 
