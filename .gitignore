@@ -1,0 +1,46 @@
+# Angular
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment files
+src/environments/*.ts
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# IDE files
+.idea/
+
+# Java Spring
+
+# Compiled files
+target/
+out/
+
+# Dependency libraries
+lib/
+*.jar
+
+# Sensitive configuration
+application.properties
+application.yml
+
+# IDE files
+*.iml
+.project
+.classpath
+.settings/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
