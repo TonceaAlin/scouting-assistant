@@ -1,46 +1,72 @@
-# Angular
+# API (Flask)
+
+# Python compiled files
+API/__pycache__/
+API/*.py[cod]
+
+# Virtual environment
+API/venv/
+API/env/
+
+# Environment variables
+API/.env
+
+# Static files
+API/static/
+
+# Pytest cache
+API/.pytest_cache/
+
+# Flask specific
+API/instance/
+
+# UI (Angular)
 
 # Node modules
-node_modules/
+UI/node_modules/
 
 # Build output
-dist/
-build/
+UI/dist/
+UI/build/
 
 # Environment files
-src/environments/*.ts
+UI/src/environments/*.ts
 
 # Temporary files
-*.tmp
-*.log
-*.bak
+UI/*.tmp
+UI/*.log
+UI/*.bak
 
 # IDE files
-.idea/
+UI/.idea/
 
-# Java Spring
+# Backend (Java Spring)
 
 # Compiled files
-target/
-out/
+backend/target/
+backend/out/
 
 # Dependency libraries
-lib/
-*.jar
+backend/lib/
+backend/*.jar
 
 # Sensitive configuration
-application.properties
-application.yml
+backend/src/main/resources/application.properties
+backend/src/main/resources/application.yml
 
 # IDE files
-*.iml
-.project
-.classpath
-.settings/
+backend/*.iml
+backend/.project
+backend/.classpath
+backend/.settings/
 
 # Log files
-*.log
+backend/*.log
 
 # Temporary files
-*.tmp
-*.bak
+backend/*.tmp
+backend/*.bak
+
+# Global for all
+.DS_Store
+Thumbs.db
