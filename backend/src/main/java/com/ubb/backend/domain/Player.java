@@ -16,7 +16,7 @@ public class Player {
     private Integer overall;
     // Other player attributes
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team; // Many players belong to one team
 

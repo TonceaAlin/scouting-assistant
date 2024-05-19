@@ -29,9 +29,6 @@ UI/node_modules/
 UI/dist/
 UI/build/
 
-# Environment files
-UI/src/environments/*.ts
-
 # Temporary files
 UI/*.tmp
 UI/*.log

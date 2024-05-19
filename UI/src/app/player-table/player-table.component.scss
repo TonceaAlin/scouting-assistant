@@ -1,0 +1,11 @@
+.search-container {
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  text-decoration-color: darkred;
+}
+
+.table-container {
+  max-height: 500px; /* Adjust according to your needs */
+  overflow: auto;
+}

@@ -1,0 +1,27 @@
+<!-- src/app/league-dialog/league-dialog.component.html -->
+<h1 mat-dialog-title>Select League and Team</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>League</mat-label>
+    <mat-select [(value)]="selectedLeague" (selectionChange)="onLeagueChange()">
+      <mat-option *ngFor="let league of leagues" [value]="league">
+        {{ league.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Team</mat-label>
+    <mat-select [(value)]="selectedTeam">
+      <mat-option *ngFor="let team of teams" [value]="team">
+        {{ team.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card *ngIf="predictionDone">
+    <mat-card-content>{{playerTeamFitMessage}}</mat-card-content>
+  </mat-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="predictMatch()">OK</button>
+</div>

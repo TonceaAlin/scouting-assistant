@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Player comparison for {{ data.playerName }}</h2>
+<div mat-dialog-content>
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-container *ngIf="!loading">
+    <mat-card *ngFor="let player of predictedPlayers" class="player-card">
+      <mat-card-header>
+        <mat-card-title>{{ player.short_name }}</mat-card-title>
+        <mat-card-subtitle>Overall: {{ player.overall }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Prediction Score: {{ player.prediction_score }}</p>
+        <mat-progress-bar mode="determinate" [value]="player.prediction_score" color="accent"></mat-progress-bar>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="navigateToDetails(player.id)">Details</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>

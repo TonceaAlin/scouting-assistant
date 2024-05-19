@@ -14,7 +14,7 @@ public class Team {
     private Long id;
     private String name;
     private String clubId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "league_id")
     private League league;
 
