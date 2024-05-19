@@ -8,10 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class PlayerService {
 
-  private username: string = 'test';
-  private password: string = 'test';
   private baseUrl: string = "http://localhost:8080/api";
-  private authString: string = btoa(`${this.username}:${this.password}`);
+  private authString: string | null = localStorage.getItem('authString');
   private headers: any = new HttpHeaders().set('Authorization', `Basic ${this.authString}`);
 
   constructor(private httpClient: HttpClient) { }
@@ -25,6 +23,9 @@ export class PlayerService {
   }
 
   public getAllPlayers(currentPage: any, pageSize: any): Observable<Player[]> {
+    if (!this.authString) {
+      throw new Error('User not authenticated');
+    }
     try {
       return this.httpClient.get<Player[]>(`${this.baseUrl}/players?page=${currentPage}&size=${pageSize}`, { headers: this.headers });
     } catch (error) {
