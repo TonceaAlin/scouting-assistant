@@ -20,6 +20,18 @@
   <mat-card *ngIf="predictionDone">
     <mat-card-content>{{playerTeamFitMessage}}</mat-card-content>
   </mat-card>
+  <mat-card *ngIf="predictionDone">
+    <mat-card-header>Overall rating</mat-card-header>
+    <app-price-range-indicator [minValue]=minOverall [maxValue]=maxOverall [currentValue]=playerOverall></app-price-range-indicator>
+  </mat-card>
+  <mat-card *ngIf="predictionDone">
+    <mat-card-header>Potential rating</mat-card-header>
+    <app-price-range-indicator [minValue]=minPotential [maxValue]=maxPotential [currentValue]=playerPotential></app-price-range-indicator>
+  </mat-card>
+  <mat-card *ngIf="predictionDone">
+    <mat-card-header>Age</mat-card-header>
+    <app-price-range-indicator [minValue]=minAge [maxValue]=maxAge [currentValue]=playerAge></app-price-range-indicator>
+  </mat-card>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>

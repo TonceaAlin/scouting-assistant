@@ -3,13 +3,13 @@ package com.ubb.backend.service;
 import com.ubb.backend.DTO.PredictionDTOAPI;
 import com.ubb.backend.DTO.SimilarPlayerDTOAPI;
 import com.ubb.backend.domain.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Service
@@ -22,10 +22,13 @@ public class PredictionAPIService {
 
     private final PlayerService playerService;
 
+    private final TeamService teamService;
 
-    public PredictionAPIService(RestTemplate restTemplate, PlayerService playerService) {
+
+    public PredictionAPIService(RestTemplate restTemplate, PlayerService playerService, TeamService teamService) {
         this.restTemplate = restTemplate;
         this.playerService = playerService;
+        this.teamService = teamService;
     }
 
     public String getPrediction(String playerId, String teamId) {
@@ -60,4 +63,5 @@ public class PredictionAPIService {
         }
         return recommendedPlayers;
     }
+
 }

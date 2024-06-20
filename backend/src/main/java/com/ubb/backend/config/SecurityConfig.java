@@ -16,8 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
+
+import java.io.IOException;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -32,8 +35,20 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/login", "/api/register").permitAll()
+                        .requestMatchers("/api/login", "/api/register", "/oauth2/**").permitAll()
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new SimpleUrlAuthenticationSuccessHandler() {
+                            @Override
+                            public void onAuthenticationSuccess(
+                                    jakarta.servlet.http.HttpServletRequest request,
+                                    jakarta.servlet.http.HttpServletResponse response,
+                                    org.springframework.security.core.Authentication authentication) throws IOException {
+                                response.sendRedirect("http://localhost:4200/home");
+                            }
+                        })
+                        .failureUrl("/login?error=true")
                 )
                 .httpBasic(withDefaults());
         return http.build();

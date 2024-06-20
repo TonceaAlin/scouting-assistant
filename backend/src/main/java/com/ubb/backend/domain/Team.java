@@ -14,6 +14,13 @@ public class Team {
     private Long id;
     private String name;
     private String clubId;
+    private Double attack;
+    private Double defence;
+    private Double midfield;
+    private Double overall;
+    private Double potential_average;
+    private Double age_average_xi;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "league_id")
     private League league;

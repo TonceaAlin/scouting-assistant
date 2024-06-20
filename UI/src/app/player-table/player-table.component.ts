@@ -6,6 +6,7 @@ import { PlayerMatchDialogComponent } from "../player-match-dialog/player-match-
 import { SimilarPlayersDialogComponent } from "../similar-players-dialog/similar-players-dialog.component";
 import { Router } from "@angular/router";
 import { debounceTime, Subject } from 'rxjs';
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-player-table',
@@ -23,7 +24,8 @@ export class PlayerTableComponent implements OnInit {
 
   @ViewChild('tableBody') tableBody: ElementRef;
 
-  constructor(private playerService: PlayerService, public dialog: MatDialog, private router: Router) {}
+  constructor(private playerService: PlayerService, public dialog: MatDialog, private router: Router,
+              ) {}
 
   ngOnInit() {
     this.players = [];
@@ -69,9 +71,10 @@ export class PlayerTableComponent implements OnInit {
     }
   }
 
-  openDialog(playerID: any, playerName: any) {
+  openDialog(player: any) {
     const dialogRef = this.dialog.open(PlayerMatchDialogComponent, {
-      data: { playerID: playerID, playerName: playerName }
+      data: { playerID: player.id, playerName: player.shortName, playerOverall: player.overall, playerPotential: player.potential,
+      playerAge: player.age }
     });
   }
 

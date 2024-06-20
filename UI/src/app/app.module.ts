@@ -23,6 +23,9 @@ import {MatSelectModule} from "@angular/material/select";
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { PriceRangeIndicatorComponent } from './price-range-indicator/price-range-indicator.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { RegisterComponent } from './register/register.component';
     SimilarPlayersDialogComponent,
     LoginComponent,
     RegisterComponent,
+    ToolbarComponent,
+    PriceRangeIndicatorComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,8 @@ import { RegisterComponent } from './register/register.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatToolbarModule
 
   ],
   providers: [

@@ -1,12 +1,15 @@
 package com.ubb.backend.controller;
 
 
+import com.ubb.backend.DTO.MinMaxResponse;
+import com.ubb.backend.domain.Player;
 import com.ubb.backend.domain.Team;
 import com.ubb.backend.exceptions.EmployeeNotFoundException;
 import com.ubb.backend.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @RestController
@@ -31,6 +34,6 @@ public class TeamController {
     @GetMapping("/teams/bound/{id}")
     List<Team> getTeamByLeague(@PathVariable Long id){
         return teamService.findByLeague(id);
-
     }
+
 }

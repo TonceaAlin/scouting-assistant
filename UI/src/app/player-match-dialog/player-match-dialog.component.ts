@@ -5,6 +5,7 @@ import {TeamService} from "../service/team.service";
 import {LeagueService} from "../service/league.service";
 import {League} from "../domain/League";
 import {Team} from "../domain/Team";
+import {MinMaxValues} from "../domain/MinMaxValues";
 
 @Component({
   selector: 'app-player-match-dialog',
@@ -19,6 +20,17 @@ export class PlayerMatchDialogComponent {
   selectedTeam: Team;
   playerTeamFitMessage: string;
   predictionDone: boolean = false;
+  minMaxValues: MinMaxValues;
+  minOverall = 0;
+  maxOverall = 0;
+  playerOverall = 0;
+  minPotential = 0;
+  maxPotential = 0;
+  playerPotential = 0;
+  playerAge = 0;
+  minAge = 0;
+  maxAge = 0;
+
 
 
   constructor(public dialogRef: MatDialogRef<PlayerMatchDialogComponent>,
@@ -45,7 +57,8 @@ export class PlayerMatchDialogComponent {
   }
 
   predictMatch() {
-    this.predictionService.predictMatchInTeam(this.data.playerID, this.selectedTeam.id).subscribe(data =>{
+    this.predictionService.predictMatchInTeam(this.data.playerID, this.selectedTeam.id).subscribe(
+      data =>{
       if(data == "1"){
         this.playerTeamFitMessage = `${this.data.playerName} would be a great fit for ${this.selectedTeam.name}`;
       }else{
@@ -53,5 +66,28 @@ export class PlayerMatchDialogComponent {
       }
       this.predictionDone = true;
     });
+    const fieldNames = ['overall', 'age', 'potential']
+    this.predictionService.getTeamMinMaxValues(this.selectedTeam.clubId, fieldNames).subscribe(
+      (data: MinMaxValues) => {
+      this.minMaxValues = data;
+      this.handleMinMaxValues();
+    })
+  }
+
+  private handleMinMaxValues() {
+    // overall
+    this.playerOverall = this.data.playerOverall;
+    this.minOverall = this.minMaxValues.minValues['overall'];
+    this.maxOverall = this.minMaxValues.maxValues['overall'];
+    // potential
+    this.playerPotential = this.data.playerPotential;
+    this.minPotential = this.minMaxValues.minValues['potential'];
+    this.maxPotential = this.minMaxValues.maxValues['potential'];
+    // age
+    this.playerAge = this.data.playerAge;
+    this.minAge = this.minMaxValues.minValues['age'];
+    this.maxAge = this.minMaxValues.maxValues['age'];
+
+
   }
 }

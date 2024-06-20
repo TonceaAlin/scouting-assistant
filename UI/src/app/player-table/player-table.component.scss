@@ -2,10 +2,32 @@
   margin: 16px 0;
   display: flex;
   justify-content: center;
-  text-decoration-color: darkred;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.search{
+  width: 100%;
 }
 
 .table-container {
   max-height: 500px; /* Adjust according to your needs */
   overflow: auto;
+  border-collapse: collapse;
+  opacity: 0.8;
+}
+
+mat-header-cell {
+  position: sticky;
+  top: 0;
+  z-index: 1; /* Ensure it stays above table rows */
+  background: #333; /* Background color for the header */
+  color: white; /* Text color for the header */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  font-size: 20;
+}
+
+mat-cell {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for table cells */
+  color: white;
 }

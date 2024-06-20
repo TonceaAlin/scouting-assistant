@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Player} from "../domain/Player"; // Make sure to import SimilarPlayerDTOAPI or adjust the import path
 
@@ -27,9 +27,20 @@ export class PredictionService {
 
   predictMatchInTeam(playerID: string, teamID: string) {
     try {
-      return this.httpClient.get<any>(`${this.baseUrl}/player/${playerID}/team/${teamID}`, { headers: this.headers });
+      return this.httpClient.get<any>(`${this.baseUrl}/player/${playerID}/team/${teamID}`,
+        { headers: this.headers });
     } catch (error) {
       console.log("Error while predicting fitness of player into team: ", error);
+      throw (error);
+    }
+  }
+
+  public getTeamMinMaxValues(teamId: any, fields: any){
+    try{
+      const params = new HttpParams().set('fieldNames', fields)
+      return this.httpClient.get<any>(`${this.baseUrl}/team/details/${teamId}`, {headers: this.headers, params: params})
+    }catch (error){
+      console.log("Error getting min-max values ", error)
       throw (error);
     }
   }

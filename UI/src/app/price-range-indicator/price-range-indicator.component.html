@@ -1,0 +1,14 @@
+<div class="price-range-container">
+  <div class="price-range-bar">
+    <div class="price-range-segment min-segment"></div>
+    <div class="price-range-segment mid-segment"></div>
+    <div class="price-range-segment max-segment"></div>
+    <div class="price-range-pointer" [ngStyle]="getPointerStyle()">
+      <span class="price-range-pointer-label">{{ currentValue }}</span>
+    </div>
+  </div>
+  <div class="price-range-labels">
+    <span>{{ minValue }}</span>
+    <span>{{ maxValue }}</span>
+  </div>
+</div>
