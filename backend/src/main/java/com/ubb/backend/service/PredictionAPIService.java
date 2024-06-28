@@ -16,7 +16,7 @@ import java.util.*;
 public class PredictionAPIService {
 
     private final String FLASK_API_URL_PREDICT = "http://127.0.0.1:5000/predict/player/%s/team/%s";
-    private final String FLASK_API_URL_SIMILAR = "http://127.0.0.1:5000/predict/similar/%s";
+    private final String FLASK_API_URL_SIMILAR = "http://127.0.0.1:5000/predict/similar/%s/%s";
 
     private final RestTemplate restTemplate;
 
@@ -37,9 +37,9 @@ public class PredictionAPIService {
         return Objects.requireNonNull(responseEntity.getBody()).getFitness();
     }
 
-    public List<SimilarPlayerDTOAPI> getSimilarPlayers(String playerId) {
+    public List<SimilarPlayerDTOAPI> getSimilarPlayers(String criteria, String playerId) {
         Player existingPlayer = this.playerService.findById(Long.valueOf(playerId)).get();
-        String apiUrl = String.format(FLASK_API_URL_SIMILAR, existingPlayer.getPlayerId());
+        String apiUrl = String.format(FLASK_API_URL_SIMILAR, criteria, existingPlayer.getPlayerId());
         ResponseEntity<Map<String, String>> responseEntity = restTemplate.exchange(
                 apiUrl,
                 HttpMethod.GET,

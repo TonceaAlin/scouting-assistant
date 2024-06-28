@@ -8,10 +8,8 @@ import {Observable} from "rxjs";
 })
 export class LeagueService {
 
-  private username: string = 'test';
-  private password: string = 'test';
   private baseUrl: string = "http://localhost:8080/api";
-  private authString: string = btoa(`${this.username}:${this.password}`);
+  private authString: string | null = localStorage.getItem('authString');
   private headers: any = new HttpHeaders().set('Authorization', `Basic ${this.authString}`);
 
   constructor(private httpClient: HttpClient) { }

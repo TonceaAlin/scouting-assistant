@@ -26,7 +26,10 @@ import { RegisterComponent } from './register/register.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { PriceRangeIndicatorComponent } from './price-range-indicator/price-range-indicator.component';
-
+import {MatTabsModule} from "@angular/material/tabs";
+import { PlayerDetailsComponent } from './player-details/player-details.component';
+import {MatGridListModule} from "@angular/material/grid-list";
+import {NgChartsModule} from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +40,7 @@ import { PriceRangeIndicatorComponent } from './price-range-indicator/price-rang
     RegisterComponent,
     ToolbarComponent,
     PriceRangeIndicatorComponent,
+    PlayerDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,8 +57,10 @@ import { PriceRangeIndicatorComponent } from './price-range-indicator/price-rang
     MatProgressBarModule,
     MatSelectModule,
     FormsModule,
-    MatToolbarModule
-
+    MatToolbarModule,
+    MatTabsModule,
+    MatGridListModule,
+    NgChartsModule
   ],
   providers: [
     provideAnimationsAsync(),

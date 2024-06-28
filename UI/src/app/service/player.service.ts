@@ -46,4 +46,13 @@ export class PlayerService {
       throw (error);
     }
   }
+
+  getPlayerDetails(playerId: string | null) {
+    try {
+      return this.httpClient.get<Player[]>(`${this.baseUrl}/players/${playerId}`, { headers: this.headers });
+    } catch (error) {
+      console.log("Error fetching player: ", error);
+      throw (error);
+    }
+  }
 }

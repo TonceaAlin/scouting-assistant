@@ -43,9 +43,9 @@ public class PredictionController {
 
     }
 
-    @GetMapping(value = "/player/similar/{player_id}")
-    public List<SimilarPlayerDTOAPI> recommendSimilarPlayers(@PathVariable String player_id){
-        return this.predictionAPIService.getSimilarPlayers(player_id);
+    @GetMapping(value = "/player/similar/{criteria}/{player_id}")
+    public List<SimilarPlayerDTOAPI> recommendSimilarPlayers(@PathVariable String criteria, @PathVariable String player_id){
+        return this.predictionAPIService.getSimilarPlayers(criteria, player_id);
     }
 
     @GetMapping("/team/details/{teamId}")

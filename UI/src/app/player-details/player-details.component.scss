@@ -1,0 +1,82 @@
+.player-profile-container {
+  padding: 20px;
+  .player-header {
+    display: flex;
+    padding: 20px;
+    background: #fff;
+    .player-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .player-info {
+      display: flex;
+      flex-wrap: wrap;
+
+      .info-column {
+        flex: 1;
+        min-width: 200px;
+        margin-right: 20px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      h1 {
+        margin: 0;
+      }
+      p {
+        margin: 5px 0;
+      }
+      .flag, .club-logo {
+        width: 20px;
+        height: auto;
+        margin-right: 5px;
+      }
+    }
+  }
+  .player-attributes {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    .attributes-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      .attributes-category {
+        background: #f1f1f1;
+        padding: 10px;
+        border-radius: 4px;
+        h3 {
+          margin-top: 0;
+        }
+        .attribute {
+          display: flex;
+          justify-content: space-between;
+          margin: 5px 0;
+          .attribute-value {
+            &.low { color: #e74c3c; }
+            &.medium { color: #f39c12; }
+            &.high { color: #2ecc71; }
+          }
+        }
+      }
+    }
+  }
+  .radar-chart-container {
+    height: 400px;
+    width: 400px;
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+  }
+  mat-tab-group {
+    margin-top: 20px;
+    background: #fff;
+    .tab-content {
+      padding: 20px;
+    }
+  }
+}

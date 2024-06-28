@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Player} from "../domain/Player"; // Make sure to import SimilarPlayerDTOAPI or adjust the import path
+import {Player} from "../domain/Player";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PredictionService {
 
-  private username: string = 'test';
-  private password: string = 'test';
   private baseUrl: string = "http://localhost:8080/api/predict";
-  private authString: string = btoa(`${this.username}:${this.password}`);
+  private authString: string | null = localStorage.getItem('authString');
   private headers: any = new HttpHeaders().set('Authorization', `Basic ${this.authString}`);
 
   constructor(private httpClient: HttpClient) { }
 
-  public getSimilarPlayers(playerId: string): Observable<Player[]> {
+  public getSimilarPlayers(playerId: string, criteria: string): Observable<Player[]> {
     try {
-      return this.httpClient.get<Player[]>(`${this.baseUrl}/player/similar/${playerId}`, { headers: this.headers });
+      return this.httpClient.get<Player[]>(`${this.baseUrl}/player/similar/${criteria}/${playerId}`, { headers: this.headers });
     } catch (error) {
       console.log("Error fetching similar players: ", error);
       throw (error);

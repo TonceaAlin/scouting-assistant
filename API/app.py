@@ -136,19 +136,26 @@ def get_top_n_recommendations(input_predictions, n=5):
     return top_n_recommendations
 
 
-def filter_recommendations_by_position(recommendations, initial_player_id, dataframe):
-    # Get the positions of the initial player
-    initial_player_positions = dataframe.loc[dataframe['player_id'] == initial_player_id, 'player_positions'].iloc[
-        0].split(', ')
-    initial_player_value = dataframe.loc[dataframe['player_id'] == initial_player_id, 'value_eur'].iloc[0]
+def filter_recommendations(recommendations, initial_player_id, criteria):
+    dataframe = filtered_players_df
+    initial_player = dataframe.loc[dataframe['player_id'] == initial_player_id].iloc[0]
+    initial_player_positions = initial_player['player_positions'].split(', ')
+    initial_player_value = initial_player['value_eur']
+    initial_player_age = initial_player['age']
     filtered_recommendations = {}
     for player_id, ratings in recommendations.items():
-        recommended_player_positions = dataframe.loc[dataframe['player_id'] == player_id, 'player_positions'].iloc[
-            0].split(', ')
-        recommended_player_value = dataframe.loc[dataframe['player_id'] == player_id, 'value_eur'].iloc[0]
+        recommended_player = dataframe.loc[dataframe['player_id'] == player_id].iloc[0]
+        recommended_player_positions = recommended_player['player_positions'].split(', ')
+        recommended_player_value = recommended_player['value_eur']
+        recommended_player_age = recommended_player['age']
         common_positions = [pos for pos in recommended_player_positions if pos in initial_player_positions]
-        if common_positions and recommended_player_value <= initial_player_value:
+        if common_positions:
+            if criteria == 'younger' and recommended_player_age >= initial_player_age:
+                continue
+            if criteria == 'cheaper' and recommended_player_value >= initial_player_value:
+                continue
             filtered_recommendations[player_id] = ratings
+
 
     # Sort the filtered recommendations based on the rating values within each tuple
     filtered_recommendations_sorted = {k: sorted(v, key=lambda x: x[1], reverse=True) for k, v in
@@ -195,8 +202,7 @@ def get_all_players():
         ['short_name', 'player_id', 'club_team_id', 'overall', 'value_eur', 'potential', 'age', 'height_cm',
          'weight_kg',
          'player_positions', 'club_contract_valid_until_year', 'nationality_name', 'preferred_foot', 'weak_foot',
-         'skill_moves',
-         'player_tags', 'player_traits', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic',
+         'skill_moves', 'player_tags', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic',
          'attacking_crossing',
          'attacking_finishing', 'attacking_heading_accuracy', 'attacking_short_passing',
          'attacking_volleys', 'skill_dribbling', 'skill_curve', 'skill_fk_accuracy',
@@ -207,7 +213,7 @@ def get_all_players():
          'mentality_vision', 'mentality_penalties', 'mentality_composure',
          'defending_marking_awareness', 'defending_standing_tackle', 'defending_sliding_tackle',
          'goalkeeping_diving', 'goalkeeping_handling', 'goalkeeping_kicking',
-         'goalkeeping_positioning', 'goalkeeping_reflexes', 'goalkeeping_speed'
+         'goalkeeping_positioning', 'goalkeeping_reflexes', 'goalkeeping_speed', 'wage_eur', 'dob'
          ]].fillna('0').dropna().to_dict(orient='records')
     return jsonify(players_data)
 
@@ -240,10 +246,10 @@ def players(player_id, team_id):
         return jsonify({'error': str(e)})
 
 
-@app.route('/predict/similar/<player_id>')
-def similar_players(player_id):
+@app.route('/predict/similar/<criteria>/<player_id>')
+def similar_players(criteria, player_id):
     top_n_recommendations = get_top_n_recommendations(predictions)
-    filtered_recommendations = filter_recommendations_by_position(top_n_recommendations, int(player_id), players_df)
+    filtered_recommendations = filter_recommendations(top_n_recommendations, int(player_id), criteria)
     top_5_recommendations = dict(sorted(filtered_recommendations.items(), key=lambda x: x[1][0][1], reverse=True)[:5])
     return_dict = {}
     for player_id, ratings in top_5_recommendations.items():

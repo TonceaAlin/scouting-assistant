@@ -1,0 +1,107 @@
+<div *ngIf="player" class="player-profile-container">
+  <!-- Player Header -->
+  <div class="player-header mat-elevation-z4">
+    <img [src]="playerImageUrl" alt="{{ player.shortName }}" class="player-image">
+    <div class="player-info">
+      <div class="info-column">
+        <h1>{{ player.shortName }}</h1>
+        <p>
+          <strong>Nationality: </strong>
+          <img [src]="playerNationUrl" alt="{{ player.nationalityName }}" class="flag">
+          {{ player.nationalityName }}
+        </p>
+        <p><strong>Overall Rating: </strong> {{ player.overall }}</p>
+        <p><strong>Potential: </strong> {{ player.potential }}</p>
+        <p><strong>Value: </strong> {{ player.valueEur | currency:'EUR' }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Age:</strong> {{ player.age }}</p>
+        <p><strong>Height:</strong> {{ player.heightCm }} cm</p>
+        <p><strong>Weight:</strong> {{ player.weightKg }} kg</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player Attributes -->
+  <div class="player-attributes mat-elevation-z4">
+    <h2>Attributes</h2>
+    <div class="attributes-section">
+      <div class="attributes-category">
+        <h3>Attacking</h3>
+        <div class="attribute" *ngFor="let attr of getAttackingAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Skill</h3>
+        <div class="attribute" *ngFor="let attr of getSkillAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Movement</h3>
+        <div class="attribute" *ngFor="let attr of getMovementAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Power</h3>
+        <div class="attribute" *ngFor="let attr of getPowerAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Mentality</h3>
+        <div class="attribute" *ngFor="let attr of getMentalityAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Defending</h3>
+        <div class="attribute" *ngFor="let attr of getDefendingAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Goalkeeping</h3>
+        <div class="attribute" *ngFor="let attr of getGoalkeepingAttributes()">
+          <span class="attribute-name">{{ attr.name }}</span>
+          <span [ngClass]="getColorClass(attr.value)" class="attribute-value">{{ attr.value }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Others</h3>
+        <div class="attribute">
+          <span class="attribute-name">Weak Foot</span>
+          <span class="attribute-value">{{ getStars(player.weakFoot) }}</span>
+        </div>
+        <div class="attribute">
+          <span class="attribute-name">Skill Moves</span>
+          <span class="attribute-value">{{ getStars(player.skillMoves) }}</span>
+        </div>
+        <div class="attribute">
+          <span class="attribute-name">Flairs</span>
+          <span class="attribute-value">{{ player.playerTags }}</span>
+        </div>
+      </div>
+      <div class="attributes-category">
+        <h3>Attributes overview</h3>
+        <div class="radar-chart-container mat-elevation-z4">
+          <canvas baseChart
+                  [datasets]="radarChartData.datasets"
+                  [labels]="radarChartData.labels"
+                  [options]="radarChartOptions"
+                  type="radar">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
