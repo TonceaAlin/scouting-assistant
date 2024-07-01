@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from flask import Flask, jsonify, request
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from surprise import Dataset, Reader
 from surprise.model_selection import train_test_split as test_train_split_recommended
 from surprise import SVD
@@ -91,6 +91,7 @@ scaler.fit(combined_df[numerical_features])
 
 #############################################################################################
 ############ SIMILAR PLAYERS RECOMMENDATION #################################################
+
 reader = Reader(rating_scale=(0, 100))  # Define the rating scale
 data = Dataset.load_from_df(players_df[['player_id', 'overall', 'potential']], reader)
 
@@ -114,10 +115,6 @@ print(potential_avg.head())
 age_avg = merged_df.groupby('team_id')['age'].mean().reset_index()
 
 teams_df = pd.merge(teams_df, potential_avg, on='team_id', how='left')
-
-
-# Function to assign weights based on player position
-
 
 def get_top_n_recommendations(input_predictions, n=5):
     # map player ID to their predicted ratings

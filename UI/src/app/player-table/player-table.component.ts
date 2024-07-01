@@ -22,6 +22,7 @@ export class PlayerTableComponent implements OnInit {
   searchTerm: string = '';
   searchSubject: Subject<string> = new Subject();
 
+
   @ViewChild('tableBody') tableBody: ElementRef;
 
   constructor(private playerService: PlayerService, public dialog: MatDialog, private router: Router,
@@ -31,7 +32,7 @@ export class PlayerTableComponent implements OnInit {
     this.players = [];
     this.loadPlayers();
 
-    this.searchSubject.pipe(debounceTime(300)).subscribe(term => {
+    this.searchSubject.pipe(debounceTime(500)).subscribe(term => {
       this.searchTerm = term;
       this.currentPage = 0;
       this.filteredPlayers = [];

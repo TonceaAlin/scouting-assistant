@@ -5,7 +5,7 @@
     <mat-label>League</mat-label>
     <mat-select [(value)]="selectedLeague" (selectionChange)="onLeagueChange()">
       <mat-option *ngFor="let league of leagues" [value]="league">
-        {{ league.name }}
+        {{ league.name }} ({{ league.nation }})
       </mat-option>
     </mat-select>
   </mat-form-field>
